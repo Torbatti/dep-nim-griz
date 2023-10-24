@@ -7,6 +7,7 @@ import (
 
 	// chi related
 	"github.com/go-chi/chi"
+	"github.com/torbatti/nim-griz/middlewares"
 
 	// .env
 	"github.com/joho/godotenv"
@@ -22,6 +23,7 @@ func main() {
 
 	// MiddleWares
 	// NOTE: all middlewares must be defined before routes on a mux
+	middlewares.Base(router)
 
 	// V1 Router
 	v1Router := chi.NewRouter()
