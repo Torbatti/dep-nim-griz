@@ -3,14 +3,14 @@ package models
 import "time"
 
 type User struct {
-	ID        string `gorm:"primaryKey"`
+	ID        string `json:"id" gorm:"primaryKey"`
 	CreatedAt time.Time
 	Name      string `json:"User"`
 	Lists     []List
 }
 
 type Game struct {
-	ID            string `gorm:"primaryKey"`
+	ID            string `json:"id" gorm:"primaryKey"`
 	CreatedAt     time.Time
 	Name          string `json:"Game"`
 	Year          uint   `json:"Year"`
@@ -24,7 +24,7 @@ type Game struct {
 }
 
 type List struct {
-	ID        string `gorm:"primaryKey"`
+	ID        string `json:"id" gorm:"primaryKey"`
 	CreatedAt time.Time
 	Name      string `json:"List"`
 	Games     []Game
