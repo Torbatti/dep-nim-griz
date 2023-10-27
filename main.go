@@ -8,6 +8,7 @@ import (
 	// Insiders
 	"github.com/torbatti/nim-griz/middlewares"
 	"github.com/torbatti/nim-griz/routes"
+	"github.com/torbatti/nim-griz/utils"
 
 	// chi related
 	"github.com/go-chi/chi"
@@ -61,7 +62,7 @@ func main() {
 	// Root
 	root := chi.NewRouter()
 	app.Router.Mount("/", root)
-	root.Get("/hi", routes.HelloWorld)
+	root.Get("/hi", utils.HelloWorld)
 
 	// Public
 	public := http.FileServer(http.Dir("./public"))
