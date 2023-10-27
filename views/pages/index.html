@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Title}}</title>
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/albors.css">
+</head>
+<body class="bgc1 tc2">
+  <h1>INDEX</h1>
+  <h2>Nim-Griz</h2>
+  {{range .Years}}
+  {{.}}
+  {{end}}
+  <br>
+  {{range .Platforms}}
+  {{.}}
+  {{end}}
+</body>
+</html>
