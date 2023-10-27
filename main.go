@@ -16,7 +16,6 @@ import (
 	"github.com/joho/godotenv"
 
 	// Gorm
-
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -49,6 +48,9 @@ func makeApp() *App {
 func main() {
 	app := makeApp()
 
+	// Public Routes
+	// Private ROutes
+
 	// Setting Up .env
 	godotenv.Load(".env") //os.Setenv(port, "8000")
 	portString := os.Getenv("PORT")
@@ -61,15 +63,17 @@ func main() {
 	app.Router.Mount("/", root)
 	root.Get("/hi", routes.HelloWorld)
 
+	// Public
+	public := http.FileServer(http.Dir("./public"))
+	root.Mount("/", public)
+
+	// Apis
 	api := chi.NewRouter() // NOTE: Use mux Then Mount
 	root.Mount("/api", api)
-
-	// Static Files : Fonts/JsLibs/Imgs/etc.
 
 	// View Routes
 	// http.Handle("/foo", routes.Base(http.ResponseWriter, *http.Request))
 	// BackEnd Routes
-	// Apis Routes
 	// Hx Routes
 	// Utils
 
