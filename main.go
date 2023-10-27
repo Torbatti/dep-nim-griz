@@ -55,7 +55,7 @@ func main() {
 	godotenv.Load(".env") //os.Setenv(port, "8000")
 	portString := os.Getenv("PORT")
 
-	// MiddleWares // NOTE: all middlewares must be defined before routes on a mux
+	// MiddleWares // NOTE: all middlewares must be defined before routes on a mux(example: group routes)
 	middlewares.Base(app.Router)
 
 	// Root
@@ -72,10 +72,11 @@ func main() {
 	root.Mount("/api", api)
 
 	// View Routes
-	// http.Handle("/foo", routes.Base(http.ResponseWriter, *http.Request))
-	// BackEnd Routes
+	root.Get("/", routes.Index)
+
 	// Hx Routes
-	// Utils
+	hx := chi.NewRouter()
+	root.Mount("/hx", hx)
 
 	// Initial server
 	server := &http.Server{
@@ -84,6 +85,7 @@ func main() {
 	}
 
 	// Listen And Serve
+	log.Println("Listening On " + server.Addr)
 	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatal(err)
