@@ -3,3 +3,4 @@ nim-griz
 
 tmp
 .env
+test.db
