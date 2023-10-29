@@ -1,0 +1,21 @@
+#nimgriz{font-size:72px;}
+#box{
+  direction:ltr;
+  width:calc(100% - 1rem);
+  margin:2rem auto;
+  display:flex;
+  flex-direction:column;
+  gap:2rem;
+}
+#box div{
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;
+}
+@media (min-width:540px){
+  #box div{width:480px;margin:auto;}
+}
+#search input{
+  width:100%;
+  border:1px solid var(--c2);
+  padding:2.5px 5px;
+  border-radius:4px;
+}
