@@ -1,8 +1,10 @@
 package routes
 
 import (
+	"log"
 	"net/http"
 
+	"github.com/go-chi/chi"
 	"github.com/torbatti/nim-griz/models"
 )
 
@@ -27,4 +29,24 @@ func Platforms(w http.ResponseWriter, r *http.Request) {
 	}
 
 	TemplateMaker(w, "views/pages/platforms.html", data)
+}
+func Platform(w http.ResponseWriter, r *http.Request) {
+	platform := chi.URLParam(r, "platform")
+	log.Println(platform)
+
+	var games []models.Game
+	App.Db.Where("platform = ?", platform).Find(&games)
+
+	// Data
+	data := struct {
+		Title    string
+		Platform string
+		Games    []models.Game
+	}{
+		Title:    "Nim Griz",
+		Platform: platform,
+		Games:    games,
+	}
+
+	TemplateMaker(w, "views/pages/platform.html", data)
 }
