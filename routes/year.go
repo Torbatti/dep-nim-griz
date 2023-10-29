@@ -9,7 +9,6 @@ import (
 )
 
 func Years(w http.ResponseWriter, r *http.Request) {
-
 	// Years
 	var game_ys []models.Game
 	var years []string
@@ -53,9 +52,11 @@ func Year(w http.ResponseWriter, r *http.Request) {
 	// Data
 	data := struct {
 		Title string
+		Year  string
 		Games []models.Game
 	}{
 		Title: "Nim Griz",
+		Year:  year,
 		Games: games,
 	}
 
