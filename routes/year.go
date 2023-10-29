@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/go-chi/chi"
 	"github.com/torbatti/nim-griz/models"
 )
 
@@ -29,4 +30,34 @@ func Years(w http.ResponseWriter, r *http.Request) {
 	}
 
 	TemplateMaker(w, "views/pages/years.html", data)
+}
+
+type YGame struct {
+	Name          string `json:"Game"`
+	Year          uint   `json:"Year"`
+	Publisher     string `json:"Publisher"`
+	Developer     string `json:"Dev"`
+	Platform      string `json:"Platform"`
+	GameLink      string `json:"GameLink"`
+	DevLink       string `json:"DevLink"`
+	PublisherLink string `json:"PublisherLink"`
+	PlatformLink  string `json:"PlatformLink"`
+}
+
+func Year(w http.ResponseWriter, r *http.Request) {
+	year := chi.URLParam(r, "year")
+	// Year
+	var games []models.Game
+	App.Db.Where("year = ?", year).Find(&games)
+
+	// Data
+	data := struct {
+		Title string
+		Games []models.Game
+	}{
+		Title: "Nim Griz",
+		Games: games,
+	}
+
+	TemplateMaker(w, "views/pages/year.html", data)
 }
