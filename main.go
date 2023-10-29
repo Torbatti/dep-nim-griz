@@ -6,7 +6,10 @@ import (
 	"os"
 
 	// Insiders
+
+	"github.com/torbatti/nim-griz/apis"
 	"github.com/torbatti/nim-griz/middlewares"
+	"github.com/torbatti/nim-griz/models"
 	"github.com/torbatti/nim-griz/routes"
 	"github.com/torbatti/nim-griz/utils"
 
@@ -21,13 +24,12 @@ import (
 	"gorm.io/gorm"
 )
 
-type App struct {
-	Router *chi.Mux
-	Db     *gorm.DB
-}
+// https://stackoverflow.com/questions/35038864/how-to-access-global-variables
+var app *utils.App
 
-func makeApp() *App {
-	app := &App{}
+func makeApp() *utils.App {
+	app = &utils.App{}
+	routes.App = app
 
 	// Database: Opening
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
@@ -37,7 +39,15 @@ func makeApp() *App {
 	} // db.Logger = logger.Default.LogMode(logger.Info)
 
 	// Database: Migrations
-	db.AutoMigrate()
+	db.AutoMigrate(&models.Game{}, &models.List{}, &models.User{})
+
+	// FIND IF DB IS EMPTY
+	// if (DB_EMPTY){}
+	// apis.Iterate("data")
+	var game models.Game
+	if result := db.Find(&game, "name = ?", "1000m Zombie Escape!"); result.Error != nil { //TODO: VALIDATE IF ERROR IS COLUMN NOT EXIST ERROR
+		apis.Start(db, "datas")
+	}
 
 	// Connecting
 	app.Router = chi.NewRouter()
@@ -74,6 +84,7 @@ func main() {
 
 	// View Routes
 	root.Get("/", routes.Index)
+	root.Get("/test", routes.Test)
 
 	// Hx Routes
 	hx := chi.NewRouter()
