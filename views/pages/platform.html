@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Title}}</title>
+  <link rel="stylesheet" href="/styles/style.css">
+  <link rel="stylesheet" href="/styles/index.css">
+  <link rel="stylesheet" href="/styles/albors.css">
+</head>
+<body class="bgc1 tc2">
+  <div id="box">
+    <a href="/" id="nimgriz" class="text-center tc3">Nim Griz</a>
+    <h1 class="text-center text-xxlarge tc2">{{.Platform}}</h1>
+    {{range .Games}}
+    <div id="game" class="flex flex-col">
+      <a href="/game/{{.Name}}">{{.Name}}</a>
+      <div>
+        <a href="/year/{{.Year}}">{{.Year}}</a>
+        <h1>{{.Publisher}}</h1>
+        <h1>{{.Developer}}</h1>
+        <a href="/platform/{{.Platform}}">{{.Platform}}</a>
+      </div>
+    </div>
+    {{end}}
+  </div>
+</body>
+</html>

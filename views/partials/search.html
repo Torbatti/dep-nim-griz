@@ -1,0 +1,7 @@
+{{range .Games}}
+  <div class="bgc2 tc1 flex text-small">
+    <a href="/game/{{.Name}}" class="text-center">{{.Name}}</a>
+    <a href="/year/{{.Year}}">{{.Year}}</a>
+    <a href="/platform/{{.Platform}}">{{.Platform}}</a>
+  </div>
+{{end}}

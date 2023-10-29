@@ -5,17 +5,45 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{.Title}}</title>
   <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="styles/index.css">
   <link rel="stylesheet" href="styles/albors.css">
+  <script src="https://unpkg.com/htmx.org@1.9.6"></script>
 </head>
 <body class="bgc1 tc2">
-  <h1>INDEX</h1>
-  <h2>Nim-Griz</h2>
-  {{range .Years}}
-  {{.}}
-  {{end}}
-  <br>
-  {{range .Platforms}}
-  {{.}}
-  {{end}}
+  
+  <div id="box">
+    <a href="/" id="nimgriz" class="text-center tc3">Nim Griz</a>
+    <div class="text-small">
+      <h1>Made With Love And Care By <a href="http://github.com/torbatti" target="_blank" rel="noopener noreferrer" class="text-underline">Arya Bakhtiari</a> | 1402</h1>
+      <h1>Using <a href="https://github.com/Elbriga14/EveryVideoGameEver" target="_blank" rel="noopener noreferrer" class="text-underline">EveryVideoGameEver</a> json Datas</h1>
+    </div>
+
+    <div id="search" class="flex-col">
+      <form>
+        <h1 class="text-small tc3">Search Box</h1>
+        <input class="form-control" type="search" 
+          name="search" placeholder="Search For Games..." 
+          hx-post="/hx/search" 
+          hx-trigger="keyup changed delay:450ms, search" 
+          hx-target="#search-results" 
+          >
+      </form>
+      <div id="search-results" class="flex flex-col low-gap"></div>
+    </div>
+
+    <div id="years">
+      <a href="/years" class="tc3">Years</a>
+      {{range .Years}}
+      <a href="/year/{{.}}">{{.}}</a>
+      {{end}}
+    </div>
+  
+    <div id="platforms">
+      <a href="/platforms" class="tc3">Platforms</a>
+      {{range .Platforms}}
+      <a href="/platform/{{.}}">{{.}}</a>
+      {{end}}
+    </div>
+  </div>
 </body>
 </html>
