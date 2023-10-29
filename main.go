@@ -8,6 +8,7 @@ import (
 	// Insiders
 
 	"github.com/torbatti/nim-griz/apis"
+	"github.com/torbatti/nim-griz/hx"
 	"github.com/torbatti/nim-griz/middlewares"
 	"github.com/torbatti/nim-griz/models"
 	"github.com/torbatti/nim-griz/routes"
@@ -30,6 +31,7 @@ var app *utils.App
 func makeApp() *utils.App {
 	app = &utils.App{}
 	routes.App = app
+	hx.App = app
 
 	// Database: Opening
 	db, err := gorm.Open(sqlite.Open("test.db"), &gorm.Config{})
@@ -84,11 +86,17 @@ func main() {
 
 	// View Routes
 	root.Get("/", routes.Index)
+	root.Get("/game/{game}", routes.GameR)
+	root.Get("/platforms", routes.Platforms)
+	root.Get("/platform/{platform}", routes.Platform)
+	root.Get("/years", routes.Years)
+	root.Get("/year/{year}", routes.Year)
 	root.Get("/test", routes.Test)
 
 	// Hx Routes
-	hx := chi.NewRouter()
-	root.Mount("/hx", hx)
+	hxR := chi.NewRouter()
+	hxR.Post("/search", hx.Search)
+	root.Mount("/hx", hxR)
 
 	// Initial server
 	server := &http.Server{
