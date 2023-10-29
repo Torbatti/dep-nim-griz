@@ -53,3 +53,14 @@ type List struct {
 ```
 
 # Show Case
+- Index
+![](/showcase/SS1.png)
+
+- Index Search Form
+![](/showcase/SS2.png)
+- Specific Platform
+![](/showcase/SS3.png)
+- Specific Year
+![](/showcase/SS4.png)
+- Specific Game
+![](/showcase/SS5.png)
